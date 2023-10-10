@@ -435,7 +435,45 @@ DESPLEGANDO LA APLICACION EN RAYLWAY
 -Primero vamos a necesitar un repositorio de github, y para ello tambien tenemos que preparar cuales seran los archivos que subiremos a github y cuales no, por lo tanto en nuestra raiz creamos el archivo .gitignore y dentro de el ignoraremoos estos archivos:
         node_modules
         .env
+
+-Ahora en Github crearemos un repositorio y alli colocaremos nuestro proyecto
+-Ahora revisaremos el archivo package.json y en "scripts" colocaremos :
+        "start": "node src/index.js"
+Es decir cuando el prollecto lo utilicemos en produccion utilizaremos "start", pero para trabajar en desarrollo local utlizaremos "dev"        
+-Guardamos los cambios y commitiamos.
+-Bien ahora en la web buscaremos el servicio Railway donde desplegaremos nuestro proyecto, una vez logeado dentro de Railway vamos a colocar:
+--Crear proyecto: alli colocaremos el nombre del proyecto
+--Elejiremos en donde esta la fuente de nuestro proyecto y seleccionaremos Github, es decir que queremos deployar desde alli, en la siguiente ventana elegiremos en que repositorio se encuentra nuestro proyecto, si no les aparece busquen la forma de poder encontrar el repositorio de su proyecto toqueteando en configurar u otras opciones, una vez encontrado el repositorio deseado, solamente nos queda seguir con el siguiente paso que es colocar deploy now o add variables, para nuestro caso es necesario que primero añadamos algunas variables, al seleccionar add Variables, nos aparecera una nueva ventana donde alli podremos colocar las variables de entorno de nuestro proyecto.
+--Antes de hacer esto nuestro proyecto utiliza base de datos de mysql, y Railway nos permite obtener una gratis, entonces nos dirigiremos a dashboard y crearemos un nuevo proyecto donde seleccionaremos Provision MySQL, al hacer click alli Railway nos creara el proyecto con todo lo seleccionado anteriormente, y una vez creada la base de datos obtendremos nuestras credenciales, entonces en connect obtendremos dichas credenciales, estas credenciales son para conectar desde consola o por la nube, en nuestro caso solo necesitamos saber otro tipo de informacion que ya incluimos en nuestra base de datos para realizar la conexion, por lo tanto , si nos dirigimos a la solapa de Variables en donde esta nuestra base de datos MySQL y alli encontraremos las variables de entorno ofrecidas por Railway.
+-Entonces que hacemos ahora, volvemos donde antes debiamos crear las variables de entorno y alli crearemos las variables DE ENTORNO:
+        DB_HOST
+        DB_USER
+        DB_PASSWORD
+        DB_PORT
+        DB_DATABASE
+-Bien una vez realizado estos cambios si observamos en deployments observaremos si esta en sucess y eso significa que nuestro proyecto quedo deployado en Railway, al hacer click en start scrip added, observaremos una consola mostrando el funcionamiento del proyecto.
+-Nos dirigimos a settings y alli veremos dos opciones una que dira Generar Domain y otra Custom Domain, nosotros le pediremos a railway que nos genere un domino y esto hara qu se genere un dominio para nuestro proyecto, para acceder a el haremos ctrl+click en el enlace proporcionado y alli veremos nuestro proyecto, para probarlo colocaaremos en en el enlace /ping o /api/empleados y veremos que pong funciona pero lo demas no esto se debe a que tenemos la base de datos sin ninguna tabla creada y no tenemos la informacion, para arreglar esto deberemos crear en la base de datos de Railway la tabla con la informacion necesaria a nuestro proyecto, una cosa practica que podriamos hacer es copiar nuestra creacion sql de la base de datos y pegarla en railway para generar la base de datos necesaria para nuestro proyecto.
+--En MySQL de railway en la solapa Query alli podremos crear la tabla del proyecto colocando lo siguiente:
+                CREATE TABLE empleado(
+                        id INT(11) NOT_NULL AUTO_INCREMENT,
+                        nombre VARCHAR(45) DEFAULT NULL,
+                        salario INT(15) DEFAULT_NULL,
+                        PRIMARY KEY(id)
+                );
+--Tambien insertamos algunos datos:
+                INSERT INTO empleado VALUES
+                        (1,'Joe',1000),
+                        (2,'Henry',2000),
+                        (3,'Sam', 2500),
+                        (4,'Max', 5000);
+
+-Bien Ahora podremos pobrar su funcionamiento y listo el backend, ahora quedaria agregar el frontend a nuestra app.
         
+
+
+
+
+
 
 
 
